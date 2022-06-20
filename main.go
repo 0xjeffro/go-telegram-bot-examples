@@ -1,12 +1,14 @@
 package main
 
 import (
-	"go-telegram-bot-examples/echo_bot"
+	// "go-telegram-bot-examples/echo_bot"
+	"go-telegram-bot-examples/echo_bot_gin"
 	"os"
 )
 
 func main() {
 	token := os.Getenv("TELEGRAM_BOT_TOKEN")
-	webhookBase := "https://adaa-8-218-73-235.ap.ngrok.io/"
-	echo_bot.Run(token, webhookBase, "0.0.0.0:80", true)
+	webhookBase := os.Getenv("WEBHOOK")
+	// echo_bot.Run(token, webhookBase, "0.0.0.0", "80", true)
+	echo_bot_gin.Run(token, webhookBase, "0.0.0.0", "80", false)
 }

@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func Run(token string, webhookBase string, addr string, debug bool) {
+func Run(token string, webhookBase string, addr string, port string, debug bool) {
 
 	bot, err := tgbotapi.NewBotAPI(token)
 	if err != nil {
@@ -34,7 +34,7 @@ func Run(token string, webhookBase string, addr string, debug bool) {
 	}
 
 	updates := bot.ListenForWebhook("/" + bot.Token)
-	go http.ListenAndServe(addr, nil)
+	go http.ListenAndServe(addr+":"+port, nil)
 
 	for update := range updates {
 		log.Printf("%+v\n", update)
