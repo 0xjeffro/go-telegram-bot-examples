@@ -6,6 +6,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"io/ioutil"
 	"log"
+	"net/http"
 )
 
 var bot *tgbotapi.BotAPI
@@ -75,6 +76,11 @@ func Run(token string, webhookBase string, addr string, port string, debug bool)
 	// telegram
 	initTelegram(token, webhookBase, debug)
 	router.POST("/"+token, webhookHandler)
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "success",
+		})
+	})
 
 	err := router.Run(":" + port)
 	if err != nil {
